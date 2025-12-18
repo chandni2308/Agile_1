@@ -3,8 +3,6 @@
 // Quiz App - script.js
 // -----------------------------
 
-// Quiz data: question, options, and correct answer.
-// Feel free to change/extend this list with your own questions.
 const quizData = [
     {
       question: "Which command initializes a new Git repository?",
@@ -77,7 +75,7 @@ const quizData = [
   let currentQuiz = 0;
   let score = 0;
   
-  // Accessibility: enable keyboard navigation with arrow keys and Enter
+  // Keyboard navigation
   function enableKeyboard() {
     let index = 0;
     const radios = Array.from(answers);
@@ -96,16 +94,13 @@ const quizData = [
         index = (index - 1 + radios.length) % radios.length;
         focusRadio(index);
       } else if (e.key === "Enter") {
-        // If an option is selected, simulate submit
         const selected = getSelected();
         if (selected) submitBtn.click();
       }
     });
   }
   
-  // Load a question onto the UI
   function loadQuiz() {
-    // Clear selection and states
     deselectAnswers();
     resetOptionStates();
   
@@ -116,12 +111,10 @@ const quizData = [
     c_text.textContent = q.c;
     d_text.textContent = q.d;
   
-    // Disable Next until an option is selected
     submitBtn.disabled = true;
     submitBtn.textContent = currentQuiz < quizData.length - 1 ? "Next" : "Finish";
   }
   
-  // Get selected radio id (a/b/c/d)
   function getSelected() {
     let answer = null;
     answers.forEach((ans) => {
@@ -135,7 +128,6 @@ const quizData = [
   }
   
   function resetOptionStates() {
-    // remove previous visual state classes
     ["a_text", "b_text", "c_text", "d_text"].forEach((id) => {
       const el = document.getElementById(id);
       el.classList.remove("correct");
@@ -143,23 +135,19 @@ const quizData = [
     });
   }
   
-  // Enable button when an option is selected
   answers.forEach((ans) => {
     ans.addEventListener("change", () => {
       submitBtn.disabled = false;
-      // Optional: set focus index to selected
     });
   });
   
   submitBtn.addEventListener("click", () => {
     const answer = getSelected();
-    if (!answer) return; // Guard
+    if (!answer) return;
   
-    // Evaluate
     const isCorrect = answer === quizData[currentQuiz].correct;
     if (isCorrect) score++;
   
-    // Visual feedback
     const correctId = quizData[currentQuiz].correct + "_text";
     const chosenId = answer + "_text";
   
@@ -168,7 +156,6 @@ const quizData = [
       document.getElementById(chosenId).classList.add("incorrect");
     }
   
-    // Brief delay for feedback, then move next
     setTimeout(() => {
       currentQuiz++;
       if (currentQuiz < quizData.length) {
@@ -196,11 +183,9 @@ const quizData = [
   
     const restartBtn = document.getElementById("restart");
     restartBtn.addEventListener("click", () => {
-      // Reset state
       currentQuiz = 0;
       score = 0;
   
-      // Restore original quiz HTML structure
       container.innerHTML = `
           <h2 id="question">Question</h2>
   
@@ -235,14 +220,12 @@ const quizData = [
           <button id="submit">Next</button>
       `;
   
-      // Re-bind references and events
       rebindElements();
       loadQuiz();
     });
   }
   
   function rebindElements() {
-    // Re-query after restart
     window.questionEl = document.getElementById("question");
     window.a_text = document.getElementById("a_text");
     window.b_text = document.getElementById("b_text");
@@ -251,12 +234,12 @@ const quizData = [
     window.submitBtn = document.getElementById("submit");
     window.answers = document.querySelectorAll('input[name="answer"]');
   
-    // Reattach listeners
     answers.forEach((ans) => {
       ans.addEventListener("change", () => {
         submitBtn.disabled = false;
       });
     });
+  
     submitBtn.addEventListener("click", () => {
       const answer = getSelected();
       if (!answer) return;
@@ -280,8 +263,9 @@ const quizData = [
           showResults();
         }
       }, 500);
-     });
+    });
   }
+  
   
   enableKeyboard();
   
