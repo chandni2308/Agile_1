@@ -1,0 +1,191 @@
+
+/* ----------------------------------
+   Quiz App - style.css
+   ---------------------------------- */
+
+   :root {
+    --bg: #0f172a;           /* slate-900 */
+    --panel: #111827;        /* gray-900 */
+    --text: #e5e7eb;         /* gray-200 */
+    --muted: #9ca3af;        /* gray-400 */
+    --primary: #22d3ee;      /* cyan-400 */
+    --primary-dark: #0891b2; /* cyan-700 */
+    --success: #22c55e;      /* green-500 */
+    --danger: #ef4444;       /* red-500 */
+    --border: #1f2937;       /* gray-800 */
+    --focus: #93c5fd;        /* blue-300 */
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background: radial-gradient(1000px 600px at 10% 10%, #0b1227, var(--bg));
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+  }
+  
+  .quiz-container {
+    width: 100%;
+    max-width: 560px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0)), var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    padding: 24px 24px 16px;
+  }
+  
+  h2#question {
+    margin: 0 0 16px 0;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+  }
+  
+  li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0b1324;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    transition: transform 0.08s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  
+  li:hover {
+    transform: translateY(-1px);
+    border-color: #243248;
+    background: #0c1628;
+  }
+  
+  input[type="radio"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--muted);
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  input[type="radio"]:focus {
+    box-shadow: 0 0 0 3px rgba(147, 197, 253, 0.35);
+    border-color: var(--focus);
+  }
+  
+  input[type="radio"]:checked {
+    border-color: var(--primary);
+  }
+  
+  input[type="radio"]:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  label {
+    cursor: pointer;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+  
+  /* Feedback states added by JS */
+  label.correct {
+    color: #d1fae5; /* emerald-100 */
+    border-left: 4px solid var(--success);
+    padding-left: 8px;
+  }
+  
+  label.incorrect {
+    color: #fee2e2; /* red-100 */
+    border-left: 4px solid var(--danger);
+    padding-left: 8px;
+  }
+  
+  button#submit,
+  button#restart {
+    width: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+    color: #06212b;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: filter 0.2s ease, transform 0.06s ease;
+  }
+  
+  button#submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    filter: grayscale(0.6);
+  }
+  
+  button#submit:hover:not(:disabled),
+  button#restart:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+  }
+  
+  .result {
+    text-align: center;
+  }
+  
+  .result h2 {
+    margin-bottom: 8px;
+  }
+  
+  .result p {
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  
+  progress {
+    width: 100%;
+    height: 16px;
+    appearance: none;
+  }
+  
+  progress::-webkit-progress-bar {
+    background-color: #0b1324;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  
+  progress::-webkit-progress-value {
+    background: linear-gradient(90deg, var(--success), #84cc16);
+    border-radius: 8px;
+  }
+  
+  .actions.actions {
+    margin-top: 16px;
+  }
